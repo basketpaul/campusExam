@@ -1,31 +1,39 @@
 package bytedance;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-        int T = sc.nextInt();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String dateStr = "";
-        for(int i = 0;i < T;i ++){
-            int year = sc.nextInt(),month = sc.nextInt(),day = sc.nextInt();
-            dateStr = year + "-" + month + "-" + day;
-            Date date = format.parse(dateStr);
-            caculate(date);
+        int n = sc.nextInt();
+        int[] a = new int[n];
+        for(int i = 0;i < n;i++){
+            a[i] = sc.nextInt();
         }
+        caculate(n,a);
     }
 
-    private static void caculate(Date date) throws ParseException {
-        String byteDance = "2012-3-12";
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date dance = format.parse(byteDance);
-
-        int days = (int)((date.getTime() - dance.getTime()) / (1000 * 3600 * 24));
-        System.out.println(days);
+    public static void caculate(int n,int[] a){
+        Arrays.sort(a);
+        int min = a[0];
+        int[][] dp = new int[min][n];
+        dp[0][0] = 1;
+        for(int i = 1;i < n;i++){
+            dp[0][i] = dp[0][i - 1] + a[i];
+        }
+        for(int i = 1;i < min;i++){
+            if(a[0] % i == 0)
+                dp[i][0] = a[0] / i;
+        }
+        for(int i = 2;i < min;i++){
+            for(int j = 0;j < n;j++){
+                if(a[j] % i == 0){
+                    dp[i][j] = dp[i][j - i] + a[j] / i;
+                }
+            }
+        }
+        System.out.println(dp[min- 1][n - 1]);
     }
-
 }
+
+
