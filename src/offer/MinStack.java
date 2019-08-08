@@ -1,9 +1,5 @@
 package offer;
 
-<<<<<<< HEAD
-=======
-import java.util.LinkedList;
->>>>>>> origin/master
 import java.util.Stack;
 
 public class MinStack {
