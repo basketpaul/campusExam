@@ -24,7 +24,6 @@ public class OnceNumber {
             if (map.get(num) == 1)
                 ret[cnt++] = num;
         }
-        num1[0] = ret[0];
         num2[0] = ret[1];
     }
 
